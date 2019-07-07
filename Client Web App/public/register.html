@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="angular/angular.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+        <script type="text/javascript">
+    
+            var sample = angular.module("sample",[]);
+            sample.controller("emp",function stud($scope,$http){
+
+                $scope.data={};
+                $scope.response={};
+                $scope.send = function(){
+                  
+                    console.log($scope.data.email);
+                    console.log($scope.data.name);
+                    console.log($scope.data.contact);
+                   
+
+                    var posting= $http({
+                        method : 'GET',
+                        url : '/process_get1',
+                        params : $scope.data
+                    }).then(function(response){
+                        console.log(response);
+                        $scope.response.data = response.data;
+
+                    },function(error){
+                        console.log(error);
+
+                    });
+                };
+            });
+            
+        </script>
+    </head>
+    <body ng-app="sample" style="font-family: ubuntu;background-image: url(https://neilpaints.com/wp-content/uploads/2019/01/background-colors-for-web-pages-amazing-web-page-background-color-2189-of-background-colors-for-web-pages.jpg)">
+        <center >
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <h1>Welcome on board</h1>
+                <form ng-submit="send()" ng-controller="emp" method="GET" >
+            
+            
+                        E-Mail : <input type="email" id="email" ng-model="data.email"><br/><br/>
+                        Name : <input type="text" id="name" ng-model="data.name"><br/><br/>
+                        Phone Number : <input type="text" id="contact" ng-model="data.contact"><br/><br/><br/>
+                        
+                        <input type="Submit" style="background-color: thistle;border-radius:10%;width:100px;height: 30px;" value="Submit"><br/>
+                        <div>{{data.response}}</div>
+                    </form>
+        </center>
+        
+       
+    </body>
+</html>
